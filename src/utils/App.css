@@ -1,0 +1,5 @@
+header ul,header li {list-style: none;}
+header ul{display: flex;}
+header li{margin-right: 15px;}
+header li a{color: #d0021b;text-decoration: none;}
+header .active{font-weight: bold;}
