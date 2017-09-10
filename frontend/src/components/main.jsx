@@ -4,7 +4,7 @@ import User from './User';
 import AddProduct from './addProduct';
 
 
-const Hello = () => (
+const Main = () => (
     <main>
         <Switch>
         <Route exact path='/' component={AddProduct} />
@@ -14,4 +14,4 @@ const Hello = () => (
     </main>
 )
 
-export default Hello;
+export default Main;

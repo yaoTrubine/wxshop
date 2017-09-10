@@ -4,7 +4,7 @@ import AddProject from './test/addProject';
 import AddProduct from './addProduct';
 import Products from './products';
 import Header from './Header';
-import './Main';
+import Main from './main';
 import uuid from 'uuid';
 import $ from 'jquery';
 import '../utils/App.css';
@@ -80,6 +80,7 @@ class App extends Component {
     return (
       <div>
         <Header />
+        <Main />
       </div>
     );
   }
