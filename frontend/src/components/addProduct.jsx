@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import FileUpload from './fileUpload';
 import FileItem from './fileItem';
+import request from 'superagent';
+
+const CLOUDINARY_UPLOAD_PRESET = 'qfy5dpel';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/linycc/image/upload';
 
 export default class AddProduct extends Component {
     constructor(){
@@ -14,6 +18,7 @@ export default class AddProduct extends Component {
     static defaultProps = {
         categories: ['吃的','穿的','住的','走的']
     }
+    //传商品
     handleSubmit(e){
         e.preventDefault();
         this.setState({
@@ -24,11 +29,17 @@ export default class AddProduct extends Component {
                 amount : this.refs.amount.value,
                 images :  this.state.images,
             }
-        },function(){
-            this.props.addProduct(this.state.newProduct);
-        })
+        },() => {
+            request.post('http://localhost:8000/api/products')
+                   .send(this.state.newProduct)
+                   .end(err => {
+                       console.log(err);
+                   })
+        });
     }
+    //传图片
     handleOnDrop(file){
+        console.log(file);
         let filename = file.map(f => {
             return f.name;
         })
@@ -36,7 +47,25 @@ export default class AddProduct extends Component {
             imagesDetail : file,
             images : filename
         })
+        file.forEach(f => {
+            this.handleImageUpload(f);
+        })
     }
+
+    handleImageUpload(file){
+        let uploadImage = request.post(CLOUDINARY_UPLOAD_URL)
+                                 .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+                                 .field('file', file);
+        
+        uploadImage.end((err,res) => {
+            if(err){
+                console.log(err);
+            }
+            console.log(res);
+        })
+       
+    }
+
     render(){
         let categoryOptions = this.props.categories.map(category => {
             return <option key={category} value={category}>{category}</option>

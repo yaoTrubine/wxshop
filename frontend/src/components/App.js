@@ -6,7 +6,6 @@ import Products from './products';
 import Header from './Header';
 import Main from './main';
 import uuid from 'uuid';
-import $ from 'jquery';
 import '../utils/App.css';
 
 
