@@ -70,9 +70,33 @@ export default class AddProduct extends Component {
         let categoryOptions = this.props.categories.map(category => {
             return <option key={category} value={category}>{category}</option>
         })
+        if(!this.props.show){
+            return null;
+        }
+        const backdropStyle = {
+            position: 'fixed',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            padding: 50
+          };
+          const modalStyle = {
+            backgroundColor: '#fff',
+            borderRadius: 5,
+            maxWidth: 500,
+            minHeight: 300,
+            margin: '0 auto',
+            padding: 30
+          };
         return (
-            <div>
-                <h3>Addd Product</h3>
+            <div className="back" style={backdropStyle}>
+                <div className="form" style={modalStyle}>
+                <button className="close" onClick={this.props.onClose}>
+                    关闭
+                </button>
+                
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <div>
                         <label htmlFor="">商品名称</label>
@@ -112,6 +136,7 @@ export default class AddProduct extends Component {
                         
                     <input type="submit" value="Submit" />
                 </form>
+                </div>
             </div>
         )
     }

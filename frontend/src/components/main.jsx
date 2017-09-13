@@ -1,13 +1,12 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import User from './User';
-import AddProduct from './addProduct';
-
+import Products from './products';
 
 const Main = () => (
     <main>
         <Switch>
-        <Route exact path='/' component={AddProduct} />
+        <Route exact path='/' component={Products} />
             <Route path='/user' component={User} />
             <Route render={()=>(<p>No Found</p>)} />
         </Switch>
