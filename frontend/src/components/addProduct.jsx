@@ -85,56 +85,74 @@ export default class AddProduct extends Component {
           const modalStyle = {
             backgroundColor: '#fff',
             borderRadius: 5,
-            maxWidth: 500,
-            minHeight: 300,
+            maxWidth: 750,
+            height : 550,
             margin: '0 auto',
-            padding: 30
+            padding: 30,
+            overflowY: 'scroll'
           };
         return (
             <div className="back" style={backdropStyle}>
                 <div className="form" style={modalStyle}>
-                <button className="close" onClick={this.props.onClose}>
-                    关闭
-                </button>
-                
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <div>
-                        <label htmlFor="">商品名称</label>
-                        <input type="text" ref="name" />
+                <div className="modal-header">
+                    <button type="button" className="close" onClick={this.props.onClose}>
+                        &times;
+                    </button>
+                    <h2 className="modal-title">上传商品</h2>
+                </div>
+                <form className="form-horizontal addProduct" onSubmit={this.handleSubmit.bind(this)}>
+                    <div className="form-group">
+                        <label className="col-lg-2 control-label" htmlFor="inputName">商品名称</label>
+                        <div className="col-lg-10">
+                            <input id="inputName" className="form-control" type="text" ref="name" />
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor="">商品价格</label>
-                        <input type="number" ref="price" />
+                    <div className="form-group">
+                        <label className="col-lg-2 control-label" htmlFor="">商品价格</label>
+                        <div className="col-lg-10">
+                            <input className="form-control" type="number" ref="price" />
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor="">商品类别</label>
-                        <select name="" id="" ref="category">
+                    <div className="form-group">
+                        <label className="col-lg-2 control-label" htmlFor="select">商品类别</label>
+                        <div className="col-lg-10">
+                        <select className="form-control" name="" id="select" ref="category">
                             {categoryOptions}
                         </select>
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor="">商品数量</label>
-                        <input type="number" ref="amount" />
+                    <div className="form-group">
+                        <label className="col-lg-2 control-label" htmlFor="">商品数量</label>
+                        <div className="col-lg-10">
+                        <input className="form-control" type="number" ref="amount" />
+                            
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor="">上传产品图片</label>
-                        <FileUpload onDrop={this.handleOnDrop.bind(this)} name="images" ref="images" />
+                    <div className="form-group">
+                        <label className="col-lg-2 control-label" htmlFor="">上传产品图片</label>
+                            <div className="col-lg-10">
+                            <FileUpload onDrop={this.handleOnDrop.bind(this)} name="images" ref="images" />
+                            <aside className="fileReader">
+                                <h5>已传文件</h5>
+                                <ul>
+                                    {
+                                        this.state.imagesDetail.map(f => 
+                                            <FileItem key={f.name} file={f} />
+                                        )
+                                    }
+                                </ul>
+                            </aside>
+                            </div>
                     </div>
-                    <aside>
-                    <h5>已传文件</h5>
-                    <ul>
-                        {
-                            this.state.imagesDetail.map(f => 
-                                <FileItem key={f.name} file={f} />
-                            )
-                        }
-                    </ul>
-                    </aside>
-                    <div>
-                        <label htmlFor="">商品描述</label>
+                    <div className="form-group">
+                        <label className="col-lg-2 control-label" htmlFor="">商品描述</label>
+                        {/* 放富文本 */}
                     </div>
-                        
-                    <input type="submit" value="Submit" />
+                    <div className="form-group">
+                        <div className="col-lg-10 col-lg-offset-2">
+                            <input className="form-control" className="btn btn-default btn-block" type="submit" value="提交" />
+                        </div>
+                    </div>
                 </form>
                 </div>
             </div>

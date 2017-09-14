@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Main from './main';
-import uuid from 'uuid';
 import '../utils/App.css';
 
 

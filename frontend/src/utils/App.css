@@ -7,3 +7,7 @@ header li a{color: #d0021b;text-decoration: none;}
 header .active{font-weight: bold;}
 main {float: left;margin-left: 40px;}
 .close{float: right;}
+.fileReader img{width: 50px;height: 50px;}
+.modal-header {padding:10px 0;border-bottom: 1px solid #BDBDBD;}
+.addProduct{padding-top: 15px;}
+input[type=submit]{font-size: 18px;font-weight: bold;}
