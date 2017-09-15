@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import FileUpload from './fileUpload';
 import FileItem from './fileItem';
 import request from 'superagent';
+import CustomToolbarEditor from './customToolbarEditor';
 
 
 const CLOUDINARY_UPLOAD_PRESET = 'qfy5dpel';
@@ -22,9 +23,7 @@ export default class AddProduct extends Component {
     //传商品
     handleSubmit(e){
         e.preventDefault();
-        const editor = this.refs.editor;
         
-        // console.log(editor.saveHandle()) //拿到编辑器html内容
         this.setState({
             newProduct :{
                 name : this.refs.name.value,
@@ -152,7 +151,7 @@ export default class AddProduct extends Component {
                     <div className="form-group">
                         <label className="col-lg-2 control-label" htmlFor="">商品描述</label>
                         <div className="col-lg-10">
-                            
+                            <CustomToolbarEditor />
                         </div>
                     </div>
                     <div className="form-group">

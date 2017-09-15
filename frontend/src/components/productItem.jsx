@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import style from '../utils/App.css';
 
 //详细产品
 export default class ProductItem extends Component{
@@ -7,27 +8,23 @@ export default class ProductItem extends Component{
         let product = this.props.product;
 
         return(
-            <dl>
-                <dt><strong>name:</strong></dt>
-                <dd>{product.name}</dd>
-                <dt><strong>price:</strong></dt>
-                <dd>{product.price}</dd>
-                <dt><strong>category:</strong></dt>
-                <dd>{product.category}</dd>
-                <dt><strong>amount:</strong></dt>
-                <dd>{product.amount}</dd>
-                <dt><strong>images</strong></dt>
-                <dd>
-                    {product.images.map((image, i) => {
+            <tr className={style.productItm}>
+                <td>{product.name}</td>
+                <td>{product.price}</td>
+                <td>{product.category}</td>
+                <td>{product.amount}</td>
+                <td>{product.images.map((image, i) => {
                         let image_url = 'http://res.cloudinary.com/linycc/image/upload/'+image;
                         return <img key={i} src={image_url} alt="" />
                     }
                         
-                    )}
-                </dd>
-
-                <br />
-            </dl>
+                    )}</td>
+                <td>
+                    <a href="#" className="btn btn-info btn-sm">编辑</a>
+                    <a href="#" className="btn btn-danger btn-sm">删除</a>
+                </td>
+            </tr>
+            
         )
     }
 }

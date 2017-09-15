@@ -5,7 +5,7 @@ export default class FileItem extends Component{
         let f = this.props.file;
         return(
             <li>
-                <img src={f.preview} />
+                <img src={f.preview} alt={f.name} />
                 <span>{f.name} - {f.size}bytes</span>
             </li>
         )

@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 
 //路由Link
 const Header = () => (
-    <header>
+    <header className="col-xs-2 col-md-2">
         <nav>
-            <ul>
-                <li><NavLink activeClassName='active' exact to='/'>商品列表</NavLink></li>
-                <li><NavLink activeClassName='active' to='/user'>用户列表</NavLink></li>
-            </ul>
+            <div className="btn-group-vertical">
+                <NavLink className="btn btn-default" activeClassName='active' exact to='/'>商品列表</NavLink>
+                <NavLink className="btn btn-default" activeClassName='active' to='/user'>用户列表</NavLink>
+            </div>
         </nav>
     </header>
 )
