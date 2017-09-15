@@ -11,3 +11,5 @@ main {float: left;margin-left: 40px;}
 .modal-header {padding:10px 0;border-bottom: 1px solid #BDBDBD;}
 .addProduct{padding-top: 15px;}
 input[type=submit]{font-size: 18px;font-weight: bold;}
+.container { z-index: 0;margin-top: 40px;}
+.editor-root{min-height: 400px;}

@@ -3,12 +3,13 @@ import FileUpload from './fileUpload';
 import FileItem from './fileItem';
 import request from 'superagent';
 
+
 const CLOUDINARY_UPLOAD_PRESET = 'qfy5dpel';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/linycc/image/upload';
 
 export default class AddProduct extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             newProduct : {},
             imagesDetail : [],
@@ -21,6 +22,9 @@ export default class AddProduct extends Component {
     //传商品
     handleSubmit(e){
         e.preventDefault();
+        const editor = this.refs.editor;
+        
+        // console.log(editor.saveHandle()) //拿到编辑器html内容
         this.setState({
             newProduct :{
                 name : this.refs.name.value,
@@ -30,6 +34,7 @@ export default class AddProduct extends Component {
                 images :  this.state.images,
             }
         },() => {
+            console.log(this.state.newProduct);
             request.post('http://localhost:8000/api/products')
                    .send(this.state.newProduct)
                    .end(err => {
@@ -65,7 +70,7 @@ export default class AddProduct extends Component {
         })
        
     }
-
+   
     render(){
         let categoryOptions = this.props.categories.map(category => {
             return <option key={category} value={category}>{category}</option>
@@ -146,7 +151,9 @@ export default class AddProduct extends Component {
                     </div>
                     <div className="form-group">
                         <label className="col-lg-2 control-label" htmlFor="">商品描述</label>
-                        {/* 放富文本 */}
+                        <div className="col-lg-10">
+                            
+                        </div>
                     </div>
                     <div className="form-group">
                         <div className="col-lg-10 col-lg-offset-2">
