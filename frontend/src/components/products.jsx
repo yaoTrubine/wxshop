@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProductItem from './productItem';
 import AddProduct from './addProduct';
-import { getProducts } from './constants/api';
+import { getProducts, deleteProducts } from './constants/api';
 import style from '../utils/App.css';
 
 //产品页面
@@ -15,7 +15,7 @@ export default class Products extends Component{
         }
     }
     static defaultProps = {
-        getProducts
+        getProducts,deleteProducts
     }
     toggleForm = () => {
         this.setState({
@@ -30,6 +30,21 @@ export default class Products extends Component{
         const data = await this.props.getProducts()
         setTimeout(() => this.setState({loading: false,products : data.products}), 2000);
     }
+
+    oneditProduct(id){
+        console.log(id);
+
+    }
+
+    async ondeleteProduct(id){
+        this.setState({
+            loading : true
+        })
+        const data = await this.props.deleteProducts(id);
+        console.log(data);
+        setTimeout(() => this.setState({loading: false,products : data.products}), 1000);
+    }
+
     render(){
         // let productItem;
         // productItem = this.props.products.map(product => {
@@ -65,7 +80,7 @@ export default class Products extends Component{
                         </thead>
                         <tbody>
                         {products.map((product,i) => 
-                        <ProductItem key={i} product={product} /> )}
+                        <ProductItem key={i} product={product} oneditProduct={this.oneditProduct.bind(this)} ondeleteProduct={this.ondeleteProduct.bind(this)} /> )}
                         </tbody>
                         </table>
                     }
