@@ -1,6 +1,6 @@
 import Product from './model';
 
-export const createProduct = async (req, res) => {
+export const createProduct = async (req, res, next) => {
     console.log(req.body);
     const { name, price, category, amount, images } = req.body;
     const newProduct = new Product({name, price, category, amount, images});
@@ -12,7 +12,7 @@ export const createProduct = async (req, res) => {
     }
 }
 
-export const findAllProduct = async (req, res) => {
+export const findAllProduct = async (req, res, next) => {
     try {
         return res.status(200).json({products : await Product.find({})});
     } catch (error) {
@@ -20,7 +20,7 @@ export const findAllProduct = async (req, res) => {
     }
 }
 
-export const updateProduct = async (req, res) => {
+export const updateProduct = async (req, res, next) => {
     const { name, price, category, amount, images } = req.body;
       
     try {
@@ -31,7 +31,7 @@ export const updateProduct = async (req, res) => {
     }
 }
 
-export const deleteProduct = async (req, res) => {
+export const deleteProduct = async (req, res, next) => {
     const { productId } = req.params; 
     try {
         return res.json({id: productId});
