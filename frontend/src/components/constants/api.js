@@ -5,10 +5,14 @@ export const getProducts = () =>
         .then(res => res.json())
 
 export const editProducts = (id,data) => 
-    fetch(`http://localhost:8000/api/products/${id}/delete`,{
+    fetch(`http://localhost:8000/api/products/${id}/edit`,{
         method: 'PUT',
         body : data
     }).then(res => res.json())
+
+export const getProduct = (id) =>
+    fetch(`http://localhost:8000/api/products/${id}`)
+        .then(res => res.json())
 
 export const deleteProducts = (id) =>
     fetch(`http://localhost:8000/api/products/${id}/delete`,{

@@ -20,21 +20,32 @@ export const findAllProduct = async (req, res, next) => {
     }
 }
 
-export const updateProduct = async (req, res, next) => {
-    const { name, price, category, amount, images } = req.body;
-      
+export const findProduct = async (req, res, next) => {
     try {
-        Product.findByIdAndUpdate({_id : req.params.id}, { name, price, category, amount, images });
-        return res.status(201).json({ product: await Product.findById({id : req.params.id })});
+        return res.status(200).json({product : await Product.findById(req.params.productId)});
+    } catch (error) {
+        return res.status(error.status).json({eror: true, message: 'Error with findProduct'});
+    }
+}
+
+export const updateProduct = async (req, res, next) => {
+    const body = req.body;
+    try {
+        const product = await Product.findById(req.params.productId);
+        Object.keys(body).forEach( key => {
+            product[key] = body[key];
+        });
+        return res.status(201).json({ product : await product.save() });
     } catch(error){
         return res.status(error.status).json({error: true, message: 'Error with updateProduct'});
     }
 }
 
 export const deleteProduct = async (req, res, next) => {
-    const { productId } = req.params; 
     try {
-        return res.json({id: productId});
+        const product = await Product.findById(req.params.productId);
+        await product.remove();
+        return res.status(200).json({message: 'delete success'});
     } catch (error) {
         return res.status(error.status).json({error: true, message: 'Error with deleteProduct'});        
     }

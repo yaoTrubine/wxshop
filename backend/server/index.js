@@ -15,7 +15,7 @@ middlewaresConfig(app);
 app.use('/api',[ProductRoutes]);
 
 app.use(express.static(path.join(__dirname, 'build/static')));
-app.get('/', (req,res) =>{
+app.get('/',(req,res) =>{
     res.sendFile(path.join(__dirname, 'build/index.html'));
 })
 

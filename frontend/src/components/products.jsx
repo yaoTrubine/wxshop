@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProductItem from './productItem';
 import AddProduct from './addProduct';
-import { getProducts, deleteProducts } from './constants/api';
+import { getProducts, getProduct, editProducts, deleteProducts } from './constants/api';
 import style from '../utils/App.css';
 
 //产品页面
@@ -11,12 +11,17 @@ export default class Products extends Component{
         this.state = {
             loading : false,
             isOpen : false,
+            product : [],
             products : []
         }
     }
     static defaultProps = {
-        getProducts,deleteProducts
+        getProducts,
+        getProduct,
+        editProducts,
+        deleteProducts
     }
+
     toggleForm = () => {
         this.setState({
             isOpen : !this.state.isOpen
@@ -27,13 +32,16 @@ export default class Products extends Component{
         this.setState({
             loading : true
         })
-        const data = await this.props.getProducts()
+        const data = await this.props.getProducts();
         setTimeout(() => this.setState({loading: false,products : data.products}), 2000);
     }
 
-    oneditProduct(id){
-        console.log(id);
-
+    async oneditProduct(id){
+        const data = await this.props.getProduct(id);
+        this.toggleForm()
+        this.setState({
+            product : data.product
+        })
     }
 
     async ondeleteProduct(id){
@@ -41,8 +49,9 @@ export default class Products extends Component{
             loading : true
         })
         const data = await this.props.deleteProducts(id);
-        console.log(data);
-        setTimeout(() => this.setState({loading: false,products : data.products}), 1000);
+        console.log(data.message);
+        const newData = await this.props.getProducts()
+        setTimeout(() => this.setState({loading: false,products : newData.products}), 2000);
     }
 
     render(){
@@ -60,6 +69,7 @@ export default class Products extends Component{
                     <AddProduct 
                     show={this.state.isOpen}
                     onClose={this.toggleForm}
+                    data={this.state.product}
                     />
 
                     {(loading) 
