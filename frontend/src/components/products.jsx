@@ -49,7 +49,6 @@ export default class Products extends Component{
             loading : true
         })
         const data = await this.props.deleteProducts(id);
-        console.log(data.message);
         const newData = await this.props.getProducts()
         setTimeout(() => this.setState({loading: false,products : newData.products}), 2000);
     }
@@ -71,7 +70,7 @@ export default class Products extends Component{
                     onClose={this.toggleForm}
                     data={this.state.product}
                     />
-
+                    
                     {(loading) 
                     ? <div className="loading">Loading</div>
                     :(!products.length)

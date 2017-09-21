@@ -21,3 +21,5 @@ input[type=submit]{font-size: 18px;font-weight: bold;}
 td img {width: 45px;height: 45px;padding-right: 10px;}
 .productItm {vertical-align: middle;height: 60px;}
 .table>tbody>tr>td {vertical-align: middle;}
+/* 用户 */
+.avatar{width: 60px;height: 60px;}

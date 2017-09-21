@@ -18,3 +18,8 @@ export const deleteProducts = (id) =>
     fetch(`http://localhost:8000/api/products/${id}/delete`,{
         method : 'DELETE'
     }).then(res => res.json())
+
+//用户
+export const getUsers = () => 
+    fetch(`http://localhost:8000/api/wx/users`)
+        .then(res => res.json())

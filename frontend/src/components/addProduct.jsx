@@ -25,27 +25,23 @@ export default class AddProduct extends Component {
     //传商品
     handleSubmit(e){
         e.preventDefault();
-        if(this.props.data){
-            console.log(this.props.data);
-        }else{
-            this.setState({
-                newProduct :{
-                    name : this.refs.name.value,
-                    price : this.refs.price.value,
-                    category : this.refs.category.value,
-                    amount : this.refs.amount.value,
-                    images :  this.state.images,
-                }
-            },() => {
-                console.log(this.state.newProduct);
-                request.post('http://localhost:8000/api/products')
-                       .send(this.state.newProduct)
-                       .end(err => {
-                           if (err) 
-                            console.log(err);
-                       })
-            });
-        }
+        this.setState({
+            newProduct :{
+                name : this.refs.name.value,
+                price : this.refs.price.value,
+                category : this.refs.category.value,
+                amount : this.refs.amount.value,
+                images :  this.state.images,
+            }
+        },() => {
+            console.log(this.state.newProduct);
+            request.post('http://localhost:8000/api/products')
+                    .send(this.state.newProduct)
+                    .end(err => {
+                        if (err) 
+                        console.log(err);
+                    })
+        });
     }
     //传图片
     handleOnDrop(file){
@@ -75,11 +71,6 @@ export default class AddProduct extends Component {
         })
     }
 
-    handleChange(e){
-        e.target.value = "123";
-    }
-
-    
     render(){
         let categoryOptions = this.props.categories.map(category => {
             return <option key={category} value={category}>{category}</option>
@@ -87,7 +78,6 @@ export default class AddProduct extends Component {
         if(!this.props.show){
             return null;
         }
-
 
         const backdropStyle = {
             position: 'fixed',
@@ -121,7 +111,7 @@ export default class AddProduct extends Component {
                         <div className="form-group">
                             <label className="col-lg-2 control-label" htmlFor="inputName">商品名称</label>
                             <div className="col-lg-10">
-                                <input id="inputName" className="form-control" type="text" ref="name" onChange={this.handleChange}/>
+                                <input id="inputName" className="form-control" type="text" ref="name"/>
                             </div>
                         </div>
                         <div className="form-group">
