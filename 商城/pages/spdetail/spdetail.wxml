@@ -1,0 +1,62 @@
+<view>
+  <swiper indicator-dots="{{indicatorDots}}" 
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="goods_infor_top">
+  <view class="goods_title">
+    {{post.title}}
+    <view class="goods_collect_btn" bindtap="collect">
+      <view wx:if="{{iscollect}}">
+        <image src="../../image/icon-aixin.png" class="goods_collect_img"></image>
+      </view>
+      <view wx:else>
+        <image src="../../image/icon-aixin1.png" class="goods_collect_img"></image>
+      </view> 
+      <text wx:if="{{iscollect}}">已收藏</text>
+      <text wx:else>收藏</text>
+    </view>
+  </view>
+  <view class="goods_price">
+    <text>¥{{post.price}}</text>
+    <text class="goods_old_price">¥269</text>
+  </view>
+  <view class="goods_deliver">
+    *本产品由 品牌商 提供发货服务。
+  </view>
+</view>
+<view class="goods_infor_pre">
+  <view class="goods_infor_txt">
+    <view class="goods_infor_brand"></view>
+    <text>{{post.description}}</text>
+  </view>
+</view>
+<view class="goods_infor_raw">
+  <!-- <view class="goods_infor_item">
+    <text>【品 牌】</text>蜂之堂
+  </view> -->
+  
+</view>
+<view class="goods_detail">
+  <view class="goods_detail_title">商品详情</view>
+  <view>
+    <image bindload="cusImageLoad" src="../../image/IMG_0466.jpg" style="width:{{imageWidth}};height:{{imageHeight}}"></image>
+  </view>
+</view>
+<view class="goods_bottom"></view>
+<view class="goods_bottom_btn">
+  <view>
+    <view class="goods_one">
+      <view class="goods_car_num">
+        <span>0</span>
+      </view>
+    </view>
+    <view class="goods_half_half green" bindtap="buyProduct">前往付款</view>
+    <view class="goods_half_half blue" bindtap="addCart">加入购物车</view>
+  </view>
+</view>

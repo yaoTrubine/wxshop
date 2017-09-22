@@ -1,0 +1,80 @@
+<view>
+  <swiper indicator-dots="{{indicatorDots}}" 
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<!-- <view class="category">
+  <view class="category_item" wx:for="{{iconArray}}">
+    <view class="category_item_wrap">
+      <view class="icon_wrap">
+        <image src="{{item.iconUrl}}" class="index_icon"></image>
+      </view>
+      <view class="category_item_text">
+        <text>{{item.iconText}}</text>
+      </view>
+    </view>
+  </view>
+</view> -->
+<!-- 话剧 -->
+<!-- <view>
+  <view class="singal_item" wx:for="{{itemArray}}">
+    <view class="singal_item_title">
+      <text>{{item.itemText}}</text>
+    </view>
+    <view class="singal_item_image">
+      <image bindload="cusImageLoad" src="{{item.itemUrl}}" style="width: {{imageWidth}};height: {{imageHeight}}"></image>
+    </view>
+  </view>
+</view> -->
+
+
+<view class="type-container">
+        <scroll-view class="type-navbar" scroll-x="true">
+            <view class="type-box" wx:for-items="{{categories}}" wx:key="id">
+                <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.name ? 'type-item-on' : ''}}" data-name="{{item.name}}" bindtap="tabClick">
+                    {{item.name}}
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+
+<view>
+
+<!-- 商品开始 -->
+<!-- <block wx:for="{{posts}}" wx:for-item='post' wx:for-index="idx" wx:key='*this'>
+    <view class="single_goods" data-id="{{post.id}}" bindtap="postDetail">
+    <view class="single_image_wrap">
+      <image src="http://res.cloudinary.com/linycc/image/upload/{{post.images[0]}}" class="single_goods_image"></image>
+    </view>
+    <view class="single_goods_infor">
+        <view class="single_goods_name">
+          <text>{{post.name}}</text>
+        </view>
+        <view class="single_goods_price">
+            <text>价格: ¥{{post.price}}</text>
+            <view class="carImgWrap">
+              <image src="../../image/car.png" class="carImg"></image>
+            </view>
+          </view>
+      </view>
+    </view>
+    </block> -->
+ 
+
+ <view class="goods-container">
+        <view class="goods-box" wx:for-items="{{products}}" wx:key="{{index}}" bindtap="toDetailsTap" data-id="{{item._id}}">
+           <view class="img-box">
+              <image src="{{item.images[0]}}" class="image" mode="aspectFill" lazy-load="true"/>
+           </view>
+           <view class="goods-title">{{item.name}}</view>
+           <view class="goods-price">¥ {{item.price}}</view>
+        </view>
+    </view>
+    <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
+
+</view>

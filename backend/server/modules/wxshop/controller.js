@@ -28,6 +28,20 @@ export const findProduct = async (req, res, next) => {
     }
 }
 
+//通过分类找产品
+export const findByCategory = async (req, res, next) => {
+    let categoryQuery = req.query.category;
+    try{
+    if(categoryQuery){
+        return res.json({products : await Product.find({category : categoryQuery})});
+    }else{
+        return res.json({products : await Product.find({})});
+    }
+    }catch(err){
+        return res.status(error.status).json({eror: true, message: 'Error with findByCategory'});
+    }
+}
+
 export const updateProduct = async (req, res, next) => {
     const body = req.body;
     try {
