@@ -20,7 +20,7 @@ Page({
                   iv: res.iv
                 })
                 wx.request({
-                  url: 'http://106.14.159.161:8000/api/wx/login',
+                  url: 'http://localhost:8000/api/wx/login',
                   data: {
                     code: that.data.wxcode,
                     encryptedData: that.data.encryptedData,

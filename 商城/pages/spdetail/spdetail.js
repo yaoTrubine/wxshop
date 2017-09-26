@@ -38,6 +38,17 @@ Page({
     },
     onLoad: function(option){
       let that = this;
+      //获取购物车数据
+      wx.getStorage({
+        key: 'shopCarInfo',
+        success: function (res) {
+          that.setData({
+            shopCarInfo: res.data,
+            shopNum: res.data.shopNum
+          });
+        }
+      })
+
         wx.request({
           url: 'http://localhost:8000/api/products/'+option.id,
           success: function(res){
@@ -54,7 +65,7 @@ Page({
     },
     goShopCar:function(){
       wx.reLaunch({
-        url: 'pages/xiaoxi/xiaoxi',
+        url: '/pages/xiaoxi/xiaoxi',
       })
     },
     toAddShopCar:function(){
@@ -97,6 +108,9 @@ Page({
         })
       }
     },
+    /*
+    **加入购物车
+    */
     addShopCar: function(){
         if(this.data.buyNumber < 1){
           wx.showModal({
@@ -106,9 +120,102 @@ Page({
           })
           return;
         }
-        
+        //构建购物车
+        let shopCarInfo = this.buildShopCarInfo();
+        this.setData({
+          shopCarInfo: shopCarInfo,
+          shopNum: shopCarInfo.shopNum
+        })
+        wx.setStorage({
+          key: 'shopCarInfo',
+          data: shopCarInfo,
+        })
+        this.closePopupTap();
+        wx.showToast({
+          title: '加入购物车成功',
+          icon: 'success',
+          duration: 2000
+        })
     },
+    /*
+    **立即购买
+    */
     buyNow: function(){
+      if (this.data.buyNumber < 1) {
+        wx.showModal({
+          title: '提示',
+          content: '购买数量不能为0',
+          showCancel: false
+        })
+        return;
+      }
+      let buyNowInfo = this.buildBuyNowInfo();
+      wx.setStorage({
+        key: 'buyNowInfo',
+        data: buyNowInfo,
+      });
+      this.closePopupTap();
+      wx.navigateTo({
+        url: '/pages/pay/pay?orderType=buyNow',
+      })
+    },
 
+
+    buildShopCarInfo: function(){
+      let shopCarMap = {};
+      shopCarMap.goodsId = this.data.goodsDetail._id;
+      shopCarMap.pic = this.data.goodsDetail.images;
+      shopCarMap.name = this.data.goodsDetail.name;
+      shopCarMap.price = this.data.goodsDetail.price;
+      shopCarMap.number = this.data.buyNumber;
+      shopCarMap.active = true;
+
+      let shopCarInfo = this.data.shopCarInfo;
+      if(!shopCarInfo.shopNum){
+        shopCarInfo.shopNum = 0;
+      }
+      if (!shopCarInfo.shopList){
+        shopCarInfo.shopList = [];
+      }
+
+      let hasSameGoodsIndex = -1;
+      for (let i = 0; i < shopCarInfo.shopList.length; i++) {
+        let tmpShopCarMap = shopCarInfo.shopList[i];
+        if (tmpShopCarMap.goodsId == shopCarMap.goodsId) {
+          hasSameGoodsIndex = i;
+          shopCarMap.number = shopCarMap.number + tmpShopCarMap.number;
+          break;
+        }
+      }
+      shopCarInfo.shopNum = shopCarInfo.shopNum + this.data.buyNumber;
+      if (hasSameGoodsIndex > -1) {
+        shopCarInfo.shopList.splice(hasSameGoodsIndex, 1, shopCarMap);
+      } else {
+        shopCarInfo.shopList.push(shopCarMap);
+      }
+      return shopCarInfo;
+    },
+
+    buildBuyNowInfo:function(){
+      let shopCarMap = {};
+      shopCarMap.goodsId = this.data.goodsDetail._id;
+      shopCarMap.pic = this.data.goodsDetail.images;
+      shopCarMap.name = this.data.goodsDetail.name;
+      shopCarMap.price = this.data.goodsDetail.price;
+      shopCarMap.number = this.data.buyNumber;
+      shopCarMap.active = true;
+      
+      let buyNowInfo = {};
+      if (!buyNowInfo.shopNum) {
+        buyNowInfo.shopNum = 0;
+      }
+      if (!buyNowInfo.shopList) {
+        buyNowInfo.shopList = [];
+      }
+      buyNowInfo.shopList.push(shopCarMap);
+
+      return buyNowInfo;
     }
+
+
 })

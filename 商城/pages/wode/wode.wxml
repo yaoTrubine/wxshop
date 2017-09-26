@@ -1,3 +1,4 @@
+<view class="container">
 <view class="personal_info">
 	<view class="photo_wrap">
 		<image src="{{userInfo.avatarUrl}}" class="photo"></image>
@@ -6,7 +7,10 @@
 		{{userInfo.nickName}}
 	</view>
 </view>
-<view class="wode_item_wrap">
-    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">123</button>
+  <view class="my-item">
+    <navigator url="/pages/order-list/order-list" hover-class="navigator-hover">我的订单</navigator>
+  </view>
+<view class="my-item">
+    <navigator url="/pages/select-address/select-address" hover-class="navigator-hover">我的收货地址</navigator>
+  </view>
 </view>
-<view class="wode_out">退出</view>
