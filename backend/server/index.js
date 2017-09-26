@@ -2,7 +2,7 @@ import express from 'express';
 import dbConfig from './config/db';
 import path from 'path';
 import middlewaresConfig from './config/middlewares';
-import { ProductRoutes, UserRoutes } from './modules';
+import { ProductRoutes, UserRoutes, OrderRoutes } from './modules';
 
 const app = express();
 
@@ -12,7 +12,7 @@ dbConfig();
 //middlewares
 middlewaresConfig(app);
 
-app.use('/api',[ProductRoutes, UserRoutes]);
+app.use('/api',[ProductRoutes, UserRoutes, OrderRoutes]);
 
 app.use(express.static(path.join(__dirname, 'build/static')));
 app.get('/',(req,res) =>{

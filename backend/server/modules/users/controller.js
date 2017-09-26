@@ -22,14 +22,17 @@ export const saveUsers = async (req, res) => {
         },async (err, response, data) => {
             if(response.statusCode == 200){
                 
-                //data: session_key, expires_in, openid
+               //data: session_key, expires_in, openid
                 let pc = new WXBizDataCrypt(APPID, data.session_key);
                 let newData = pc.decryptData(encryptedData, iv);
                 console.log(newData);
                 let { openId,nickName,gender,language,city,province,country,avatarUrl } = newData;
                 let newUser = new User({ openId,nickName,gender,language,city,province,country,avatarUrl });
+
                 try {
-                    return res.status(201).json({user : await newUser.save()});
+                    return res.status(201).json({
+                        user : await newUser.save(),
+                    });
                 } catch (error) {
                     return res.status(error.status).json({eror: true, message: 'Error with saveUser'});
                 }
