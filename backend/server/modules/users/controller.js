@@ -28,7 +28,6 @@ export const saveUsers = async (req, res) => {
                 console.log(newData);
                 let { openId,nickName,gender,language,city,province,country,avatarUrl } = newData;
                 let newUser = new User({ openId,nickName,gender,language,city,province,country,avatarUrl });
-
                 try {
                     return res.status(201).json({
                         user : await newUser.save(),

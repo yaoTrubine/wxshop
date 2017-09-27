@@ -38,6 +38,7 @@ Page({
     },
     onLoad: function(option){
       let that = this;
+      let requestUrl = app.globalData.requestUrl;
       //获取购物车数据
       wx.getStorage({
         key: 'shopCarInfo',
@@ -50,7 +51,7 @@ Page({
       })
 
         wx.request({
-          url: 'http://localhost:8000/api/products/'+option.id,
+          url: requestUrl + 'api/products/'+option.id,
           success: function(res){
             that.data.goodsDetail = res.data.product;
             that.setData({

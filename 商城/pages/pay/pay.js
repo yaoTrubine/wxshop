@@ -1,9 +1,11 @@
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    allGoodsAndYunPrice: 0,
     goodsList: [],
     orderType: ""
   },
@@ -18,12 +20,6 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
-  },
 
   /**
    * 生命周期函数--监听页面显示
@@ -56,8 +52,9 @@ Page({
 
   createOrder: function(e){
     wx.showLoading();
+    let requestUrl = app.globalData.requestUrl;
+    let loginToken = app.globalData.token;
     let that = this;
-    console.log(e);
     let remark = '';
 
     if(e){
@@ -65,12 +62,12 @@ Page({
     }
 
     let postData = {
-      // openId : openId,
+      token: loginToken,
       goodsJsonStr: that.data.goodsJsonStr,
       remark: remark
     }
     wx.request({
-      url: 'http://localhost:8000/api/order/new',
+      url:  requestUrl + 'api/order/new',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -81,6 +78,14 @@ Page({
         wx.redirectTo({
           url: '/pages/order-list/order-list',
         });
+
+        if (!e) {
+          that.setData({
+            allGoodsPrice: res.data.data.amountTotle,
+            allGoodsAndYunPrice: res.data.data.amountLogistics,
+          });
+          return;
+        }
       }
     })
   },

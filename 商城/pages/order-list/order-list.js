@@ -1,5 +1,5 @@
-var wxpay = require('../../utils/pay.js')
-var app = getApp()
+var wxpay = require('../../utils/pay.js');
+var app = getApp();
 Page({
   data:{
     statusType: ["待付款", "待发货", "待收货", "待评价", "已完成"],
@@ -17,11 +17,12 @@ Page({
   orderDetail : function (e) {
     var orderId = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: "/pages/order-details/index?id=" + orderId
+      url: "/pages/order-details/order-details?id=" + orderId
     })
   },
   cancelOrderTap:function(e){
     var that = this;
+    let requestUrl = app.globalData.requestUrl;
     var orderId = e.currentTarget.dataset.id;
      wx.showModal({
       title: '确定要取消该订单吗？',
@@ -30,11 +31,11 @@ Page({
         if (res.confirm) {
           wx.showLoading();
           wx.request({
-            url: 'http://localhost:8000/api/order/'+orderId+'/delete',
-            
+            url: requestUrl + 'api/order/'+orderId+'/delete',
+            method: 'DELETE',
             success: (res) => {
               wx.hideLoading();
-              if (res.data.code == 0) {
+              if (res.data.message) {
                 that.onShow();
               }
             }
@@ -46,11 +47,11 @@ Page({
   toPayTap:function(e){
     var orderId = e.currentTarget.dataset.id;
     var money = e.currentTarget.dataset.money;
-    wxpay.wxpay(app, money, orderId, "/pages/order-list/index");
+    wxpay.wxpay(app, money, orderId, "/pages/order-list/order-list");
   },
   onLoad:function(options){
     // 生命周期函数--监听页面加载
-   
+    console.log(app.globalData.token);
   },
   onReady:function(){
     // 生命周期函数--监听页面初次渲染完成
@@ -62,38 +63,6 @@ Page({
       url: 'http://localhost:8000/api/order/all',
       success: (res) => {
         wx.hideLoading();
-        if (res.data.code == 0) {
-          var tabClass = that.data.tabClass;
-          if (res.data.data.count_id_no_pay > 0) {
-            tabClass[0] = "red-dot"
-          } else {
-            tabClass[0] = ""
-          }
-          if (res.data.data.count_id_no_transfer > 0) {
-            tabClass[1] = "red-dot"
-          } else {
-            tabClass[1] = ""
-          }
-          if (res.data.data.count_id_no_confirm > 0) {
-            tabClass[2] = "red-dot"
-          } else {
-            tabClass[2] = ""
-          }
-          if (res.data.data.count_id_no_reputation > 0) {
-            tabClass[3] = "red-dot"
-          } else {
-            tabClass[3] = ""
-          }
-          if (res.data.data.count_id_success > 0) {
-            //tabClass[4] = "red-dot"
-          } else {
-            //tabClass[4] = ""
-          }
-
-          that.setData({
-            tabClass: tabClass,
-          });
-        }
       }
     })
   },
@@ -102,25 +71,20 @@ Page({
     wx.showLoading();
     var that = this;
     
-    let openId = app.globalData.openId;
-    postData.status = that.data.currentType;
+    let openId = app.globalData.token;
     this.getOrderStatistics();
     wx.request({
       url: 'http://localhost:8000/api/order/'+ openId,
-      data: postData,
       success: (res) => {
         wx.hideLoading();
-        if (res.data.code == 0) {
+        console.log(res.data);
+        if (res) {
           that.setData({
-            orderList: res.data.data.orderList,
-            logisticsMap : res.data.data.logisticsMap,
-            goodsMap : res.data.data.goodsMap
+            orderList: res.data.orders,
           });
         } else {
           this.setData({
             orderList: null,
-            logisticsMap: {},
-            goodsMap: {}
           });
         }
       }

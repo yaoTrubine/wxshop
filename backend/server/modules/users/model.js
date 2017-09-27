@@ -2,7 +2,8 @@ import mongoose, { Schema } from 'mongoose';
 
 const UserSchema = new Schema({
     openId:{
-        type:String
+        type:String,
+        unique : true
     },
     nickName:{
         type:String

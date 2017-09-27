@@ -7,7 +7,6 @@
     "pages/xiaoxi/xiaoxi",
     "pages/order-list/order-list",
     "pages/select-address/select-address",
-    "pages/select-address/select-address",
     "pages/address-add/address-add"
   ],
   "window": {

@@ -5,7 +5,9 @@ Page({
   		userInfo: {},
   	},
   	onLoad: function() {
-  		var that = this;
+      let that = this;
+      let requestUrl = app.globalData.requestUrl;
+      console.log(app.globalData.token);
   		wx.login({
         success: function (res) {
           if(res.code){
@@ -20,7 +22,7 @@ Page({
                   iv: res.iv
                 })
                 wx.request({
-                  url: 'http://localhost:8000/api/wx/login',
+                  url: requestUrl + 'api/wx/login',
                   data: {
                     code: that.data.wxcode,
                     encryptedData: that.data.encryptedData,

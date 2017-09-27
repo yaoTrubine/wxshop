@@ -254,6 +254,7 @@ Page({
   toPayOrder: function () {
     wx.showLoading();
     var that = this;
+    let requestUrl = app.globalData.requestUrl;
     if (this.data.goodsList.noSelect) {
       wx.hideLoading();
       return;
@@ -283,7 +284,7 @@ Page({
       // 获取价格和库存
       if (!carShopBean.propertyChildIds || carShopBean.propertyChildIds == "") {
         wx.request({
-          url: 'http://localhost:8000/api/products/'+carShopBean.goodsId,
+          url: requestUrl + 'api/products/'+carShopBean.goodsId,
           
           success: function (res) {
             console.log(res);
