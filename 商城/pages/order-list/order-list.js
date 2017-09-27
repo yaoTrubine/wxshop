@@ -58,9 +58,10 @@ Page({
  
   },
   getOrderStatistics : function () {
+    let requestUrl = app.globalData.requestUrl;
     var that = this;
     wx.request({
-      url: 'http://localhost:8000/api/order/all',
+      url:  requestUrl + '/api/order/all',
       success: (res) => {
         wx.hideLoading();
       }
@@ -70,11 +71,11 @@ Page({
     // 获取订单列表
     wx.showLoading();
     var that = this;
-    
+    let requestUrl = app.globalData.requestUrl;
     let openId = app.globalData.token;
     this.getOrderStatistics();
     wx.request({
-      url: 'http://localhost:8000/api/order/'+ openId,
+      url:  requestUrl + '/api/order/'+ openId,
       success: (res) => {
         wx.hideLoading();
         console.log(res.data);

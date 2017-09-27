@@ -88,12 +88,13 @@ Page({
     //获取不同分类的产品
     getProductsList: function(categroyId){
       let that = this;
+      let requestUrl = app.globalData.requestUrl;
       if (categroyId == '全部'){
         categroyId = '';
       }
       
       wx.request({
-        url: 'http://localhost:8000/api/products/category/category',
+        url: requestUrl + '/api/products/category/category',
         data:{
           category: categroyId
         },

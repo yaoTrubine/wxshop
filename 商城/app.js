@@ -81,7 +81,7 @@ App({
     },
    
     globalData:{
-      requestUrl: 'http://localhost:8000/'
+      requestUrl: 'https://huikanxi.flhome.cn/'
     }
     // 根据自己需要修改下单时候的模板消息内容设置，可增加关闭订单、收货时候模板消息提醒
   })
