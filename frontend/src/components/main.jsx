@@ -7,9 +7,9 @@ import Order from './orders';
 const Main = () => (
     <main className="col-xs-12 col-md-10">
         <Switch>
-            <Route exact path='/' component={Products} />
-            <Route path='/user' component={User} />
-            <Route path='/order' component={Order} />
+            <Route exact path='/protected/product' component={Products} />
+            <Route path='/protected/user' component={User} />
+            <Route path='/protected/order' component={Order} />
             <Route render={()=>(<p>No Found</p>)} />
         </Switch>
     </main>

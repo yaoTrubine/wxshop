@@ -13,6 +13,7 @@ export default class AddProduct extends Component {
     constructor(props){
         super(props);
         this.state = {
+            notice : false,
             newProduct : {},
             product : {},
             imagesDetail : [],
@@ -25,6 +26,7 @@ export default class AddProduct extends Component {
     //传商品
     handleSubmit(e){
         e.preventDefault();
+        let that = this;
         this.setState({
             newProduct :{
                 name : this.refs.name.value,
@@ -37,15 +39,18 @@ export default class AddProduct extends Component {
             console.log(this.state.newProduct);
             request.post('http://localhost:8000/api/products')
                     .send(this.state.newProduct)
-                    .end(err => {
-                        if (err) 
-                        console.log(err);
+                    .end( (err, res) => {
+                        if (err || !res.ok) {
+                            console.log(err);
+                        }
+                        this.setState({
+                            notice : true
+                        })
                     })
         });
     }
     //传图片
     handleOnDrop(file){
-        console.log(file);
         let filename = file.map(f => {
             return f.name;
         })
@@ -97,6 +102,7 @@ export default class AddProduct extends Component {
             padding: 30,
             overflowY: 'scroll'
           };
+        const { notice } = this.state;
         return (
             <div className="back" style={backdropStyle}>
                 <div className="form" style={modalStyle}>
@@ -163,6 +169,7 @@ export default class AddProduct extends Component {
                             </div>
                         </div>
                     </form>
+                    
                 </div>
                 </div>
             </div>

@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App';
+import AuthExample from './components/auth1';
 import { BrowserRouter } from 'react-router-dom';
-
 
 ReactDOM.render((
 <BrowserRouter>
-    <App />
+    <AuthExample />
 </BrowserRouter>
 ), document.getElementById('root'));

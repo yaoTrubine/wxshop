@@ -94,7 +94,7 @@ Page({
       }
       
       wx.request({
-        url: requestUrl + '/api/products/category/category',
+        url: requestUrl + 'api/products/category/category',
         data:{
           category: categroyId
         },

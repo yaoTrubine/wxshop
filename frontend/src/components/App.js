@@ -12,13 +12,6 @@ class App extends Component {
       }
   }
 
-  componentWillMount(){
-  }
-
-  componentDidMount(){
-
-  }
-
   render() {
     return (
       <div>
