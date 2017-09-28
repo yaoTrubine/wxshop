@@ -21,7 +21,7 @@ const AuthExample = () => (
     <div>
       <AuthButton/>
       <ul>
-        <li><Link to="/protected">后台</Link></li>
+        <li><Link to="/protected">进入后台</Link></li>
       </ul>
       <Route path="/login" component={Login}/>
       <PrivateRoute path="/protected" component={App}/>
