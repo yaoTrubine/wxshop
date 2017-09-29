@@ -12,10 +12,6 @@ import App from './App';
 // 2. Click the protected page
 // 3. Log in
 // 4. Click the back button, note the URL each time
-const usernameAndPassword = {
-    username : 'admin',
-    password : 'admin'
-}
 
 const AuthExample = () => (
     <div>

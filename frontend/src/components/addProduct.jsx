@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import FileUpload from './fileUpload';
 import FileItem from './fileItem';
 import request from 'superagent';
-import CustomToolbarEditor from './customToolbarEditor';
 import style from '../utils/App.css';
-
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
 const CLOUDINARY_UPLOAD_PRESET = 'qfy5dpel';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/linycc/image/upload';
@@ -17,7 +19,8 @@ export default class AddProduct extends Component {
             newProduct : {},
             product : {},
             imagesDetail : [],
-            images : []
+            images : [],
+            editorState: EditorState.createEmpty(),
         }
     }
     static defaultProps = {
@@ -34,6 +37,7 @@ export default class AddProduct extends Component {
                 category : this.refs.category.value,
                 amount : this.refs.amount.value,
                 images :  this.state.images,
+                description : draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
             }
         },() => {
             console.log(this.state.newProduct);
@@ -49,6 +53,12 @@ export default class AddProduct extends Component {
                     })
         });
     }
+    onEditorStateChange: Function = (editorState) => {
+        this.setState({
+          editorState,
+        });
+        
+      };
     //传图片
     handleOnDrop(file){
         let filename = file.map(f => {
@@ -83,7 +93,7 @@ export default class AddProduct extends Component {
         if(!this.props.show){
             return null;
         }
-
+        const { editorState } = this.state;
         const backdropStyle = {
             position: 'fixed',
             top: 0,
@@ -160,7 +170,16 @@ export default class AddProduct extends Component {
                         <div className="form-group">
                             <label className="col-lg-2 control-label" htmlFor="">商品描述</label>
                             <div className="col-lg-10">
-                                <CustomToolbarEditor />
+                                <Editor
+                                editorState={editorState}
+                                toolbarClassName="toolbarClassName"
+                                wrapperClassName="wrapperClassName"
+                                editorClassName="editorClassName"
+                                onEditorStateChange={this.onEditorStateChange}
+                                />
+                                <textarea
+                                value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                                />
                             </div>
                         </div>
                         <div className="form-group">
