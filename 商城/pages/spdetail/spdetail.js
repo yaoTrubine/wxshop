@@ -56,6 +56,7 @@ Page({
             that.data.goodsDetail = res.data.product;
             that.setData({
               goodsDetail : res.data.product,
+              nodes: res.data.product.description,
               selectSizePrice : res.data.product.price,
               buyNumMax : res.data.product.amount,
               buyNumber: (res.data.product.amount>0) ? 1 : 0

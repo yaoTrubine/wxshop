@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Main from './main';
-import '../utils/App.css';
-import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+// import '../utils/App.css';
+import editorStyle from '../utils/editorStyles.css';
 
 class App extends Component {
   constructor(){
@@ -14,7 +14,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div style={editorStyle}>
         <Header />
         <Main />
       </div>

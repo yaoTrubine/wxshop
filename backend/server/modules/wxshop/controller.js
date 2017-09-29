@@ -2,8 +2,8 @@ import Product from './model';
 
 export const createProduct = async (req, res, next) => {
     console.log(req.body);
-    const { name, price, category, amount, images } = req.body;
-    const newProduct = new Product({name, price, category, amount, images});
+    const { name, price, category, amount, images, description } = req.body;
+    const newProduct = new Product({name, price, category, amount, images, description});
 
     try {
         return res.status(201).json({ product : await newProduct.save() });

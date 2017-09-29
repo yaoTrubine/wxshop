@@ -3,6 +3,8 @@ import FileUpload from './fileUpload';
 import FileItem from './fileItem';
 import request from 'superagent';
 import style from '../utils/App.css';
+// import '../utils/editorStyles.css';
+// import './editorStyles.css';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
@@ -112,6 +114,7 @@ export default class AddProduct extends Component {
             padding: 30,
             overflowY: 'scroll'
           };
+        
         const { notice } = this.state;
         return (
             <div className="back" style={backdropStyle}>
@@ -177,9 +180,9 @@ export default class AddProduct extends Component {
                                 editorClassName="editorClassName"
                                 onEditorStateChange={this.onEditorStateChange}
                                 />
-                                <textarea
+                                {/* <textarea
                                 value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                                />
+                                /> */}
                             </div>
                         </div>
                         <div className="form-group">
@@ -188,7 +191,9 @@ export default class AddProduct extends Component {
                             </div>
                         </div>
                     </form>
-                    
+                    {(notice)
+                    ?<div>上传成功</div>
+                    :<div></div>}
                 </div>
                 </div>
             </div>
